@@ -81,6 +81,11 @@ class ResultsTable extends LitElement {
           </tbody>
         </table>
       </div>
+      <p class="has-text-centered is-size-7 mt-6">
+        Desenvolvido por
+        <a href="https://github.com/EnduranceCode" target="_blank" class="has-text-weight-bold ">EnduranceCode</a>.
+        Código fonte com licença <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </p>
     `;
   }
 

@@ -70,3 +70,8 @@ class RaceResults extends LitElement {
 }
 
 customElements.define('race-results', RaceResults);
+
+/*
+ * Hack to hide the menu bar of B5 File Manager WordPress plugin
+ */
+document.getElementsByClassName('b5-menu-bar')[0].style.display = 'none';

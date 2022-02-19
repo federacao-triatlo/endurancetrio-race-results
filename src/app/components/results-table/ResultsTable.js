@@ -83,8 +83,9 @@ class ResultsTable extends LitElement {
       </div>
       <p class="has-text-centered is-size-7 mt-6">
         Desenvolvido por
-        <a href="https://github.com/EnduranceCode" target="_blank" class="has-text-weight-bold ">EnduranceCode</a>.
-        Código fonte com licença <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+        <a href="https://github.com/EnduranceCode" target="_blank" class="has-text-weight-bold ">EnduranceCode</a> para
+        a <a href="https://www.federacao-triatlo.pt/">FTP</a>. Código fonte com licença
+        <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
       </p>
     `;
   }

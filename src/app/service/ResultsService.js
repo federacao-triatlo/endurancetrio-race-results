@@ -58,10 +58,10 @@ class ResultsService {
   }
 
   /**
-   * Fetchs, from a JSON file, the overall results for the given race reference
+   * Fetchs, from a JSON file, the overall results for the given race reference.
    *
-   * @param {String} raceReference The race reference of the desired results
-   * @returns
+   * @param {String} raceReference The race reference of the desired results.
+   * @returns The overall results of the given race reference.
    */
   static async getResultsByReferenceFromJsonFile(raceReference) {
     const url = getEndpoint('results', raceReference);

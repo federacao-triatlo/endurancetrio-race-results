@@ -8,9 +8,14 @@ import { LitElement, html, css } from 'lit';
 
 import { appStyles } from '../../css/app-style';
 import { uiMessagesKeys, getUiMessage } from '../../i18n/ui-messages';
+import { router } from '../../RaceResults';
 import { Utils } from '../../utils/Utils';
 
-class EventHeader extends LitElement {
+import { EventService } from '../../service/EventService';
+
+import '../race-data/RaceData';
+
+class EventData extends LitElement {
   static styles = [
     css`
       :host {
@@ -25,12 +30,23 @@ class EventHeader extends LitElement {
   ];
 
   static properties = {
+    location: { type: Object },
     event: {},
+    race: {},
   };
 
   constructor() {
     super();
+    this.location = router.location;
     this.event = {};
+    this.race = {};
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    EventService.getEventByReference(this.location.params.eventReference).then((result) => {
+      this.event = result;
+    });
   }
 
   render() {
@@ -38,13 +54,27 @@ class EventHeader extends LitElement {
       <section class="box has-background-link-light mb-4">
         ${Utils.isObjectEmpty(this.event) ? this.renderProgressBar() : this.renderEventHeader()}
       </section>
+
+      <race-data
+        location="${Utils.getComposedLocation(this.event.city, this.event.county, this.event.district)}"
+        .race="${this.race}"
+      ></race-data>
     `;
   }
 
   /**
-   * Renders the Event Header template
+   * Renders the Progress Bar template.
    *
-   * @returns The Event Header template
+   * @returns The Progress Bar template.
+   */
+  renderProgressBar() {
+    return html`<progress class="progress is-info"></progress>`;
+  }
+
+  /**
+   * Renders the Event Header template.
+   *
+   * @returns The Event Header template.
    */
   renderEventHeader() {
     const composedEventDate = getComposedEventDate(this.event.startDate, this.event.endDate);
@@ -66,6 +96,7 @@ class EventHeader extends LitElement {
             <div class="field-label is-normal">
               <label class="label">${getUiMessage(uiMessagesKeys.results)}</label>
             </div>
+
             <div class="field-body">
               <div class="field">
                 <div class="control">
@@ -88,13 +119,13 @@ class EventHeader extends LitElement {
   }
 
   /**
-   * Renders the Error Message template
+   * Renders the Error Message template.
    *
-   * @returns The Error Message template
+   * @returns The Error Message template.
    */
   renderErrorMessage() {
     return html`
-      <div class="notification is-warning">
+      <div class="notification is-warning mt-6">
         <h3 class="title is-3">${getUiMessage(uiMessagesKeys.error)}</h3>
         <p>${this.event.error}</p>
       </div>
@@ -102,41 +133,29 @@ class EventHeader extends LitElement {
   }
 
   /**
-   * Renders the Progress Bar template
+   * Handles the change of the option on the race's dropdown.
    *
-   * @returns The Progress Bar template
-   */
-  renderProgressBar() {
-    return html`<progress class="progress is-info"></progress>`;
-  }
-
-  /**
-   * Handles the change of the option on the race's dropdown
-   *
-   * @param {Event} e The event to be handled
+   * @param {Event} e The event to be handled.
    */
   handleChangeSelection(e) {
-    let selectedRace = {};
     if (this.event.races && this.event.races.length > 0) {
       this.event.races.map((race) => {
         if (race.raceReference == e.target.value) {
-          selectedRace = race;
+          this.race = race;
         }
       });
     }
 
-    this.dispatchEvent(
-      new CustomEvent('event-header-change-race', { bubbles: true, composed: true, detail: { race: selectedRace } })
-    );
+    this.dispatchEvent(new CustomEvent('event-data-change-race', { bubbles: true, composed: true }));
   }
 }
 
 /**
- * Gets the composed event's date in a well formatted string
+ * Gets the composed event's date in a well formatted string.
  *
- * @param {String} eventStartDate The event start date
- * @param {String} eventEndDate The event end date
- * @returns The event's composed date in a and well formatted string
+ * @param {String} eventStartDate The event start date.
+ * @param {String} eventEndDate The event end date.
+ * @returns The event's composed date in a and well formatted string.
  */
 function getComposedEventDate(eventStartDate, eventEndDate) {
   const startDate = new Date(eventStartDate);
@@ -158,4 +177,4 @@ function getComposedEventDate(eventStartDate, eventEndDate) {
   return eventDate;
 }
 
-customElements.define('event-header', EventHeader);
+customElements.define('event-data', EventData);

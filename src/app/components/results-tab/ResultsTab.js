@@ -38,6 +38,21 @@ class ResultsTab extends LitElement {
     this._activeTab = 'overall';
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+
+    document.addEventListener('event-data-change-race', () => {
+      this._activeTab = 'overall';
+    });
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener('event-data-change-race', () => {
+      this._activeTab = 'overall';
+    });
+    super.disconnectedCallback();
+  }
+
   render() {
     const ageGroupLabels = Array.from(this.results.keys());
     const resultsEntries = Array.from(this.results.entries());
@@ -72,9 +87,9 @@ class ResultsTab extends LitElement {
   }
 
   /**
-   * Toggles the Age Group active tab
+   * Toggles the Age Group active tab.
    *
-   * @param {Event} event The click event on the tabs menu
+   * @param {Event} event The click event on the tabs menu.
    */
   toggleActiveTab(event) {
     this._activeTab = event.target.id;

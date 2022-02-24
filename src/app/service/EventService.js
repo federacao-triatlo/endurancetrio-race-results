@@ -9,10 +9,10 @@ import { getErrorMessage, errorMessagesKeys } from '../i18n/error-messages';
 
 class EventService {
   /**
-   * Returns the event with the given reference
+   * Returns the event with the given reference.
    *
-   * @param {String} eventReference reference of the event to fetch
-   * @returns the desired event
+   * @param {String} eventReference reference of the event to fetch.
+   * @returns the desired event.
    */
   static async getEventByReference(eventReference) {
     const result = await fetch(getEndpoint('events', eventReference), { cache: 'no-store' })
@@ -31,9 +31,9 @@ class EventService {
   }
 
   /**
-   * Fetchs all events that are stored on the server
+   * Fetchs all events that are stored on the server.
    *
-   * @returns the all events stored on the server
+   * @returns the all events stored on the server.
    */
   static async getEvents() {
     return fetch(getEndpoint('events', 'events'), { cache: 'no-store' })

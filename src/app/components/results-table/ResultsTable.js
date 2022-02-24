@@ -50,6 +50,23 @@ class ResultsTable extends LitElement {
     this._sortingOrder = 1;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+
+    document.addEventListener('event-data-change-race', () => {
+      this._sortColumn = 'rank';
+      this._sortingOrder = 1;
+    });
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener('event-data-change-race', () => {
+      this._sortColumn = 'rank';
+      this._sortingOrder = 1;
+    });
+    super.disconnectedCallback();
+  }
+
   render() {
     return html`
       <div class="table-container">
@@ -102,10 +119,10 @@ class ResultsTable extends LitElement {
   }
 
   /**
-   * Get the order index of the given column
+   * Get the order index of the given column.
    *
-   * @param {String} columnKey The column key
-   * @returns The order index of the given column
+   * @param {String} columnKey The column key.
+   * @returns The order index of the given column.
    */
   getSortingIndex(columnKey) {
     return this._sortColumn === columnKey ? this._sortingOrder : 0;

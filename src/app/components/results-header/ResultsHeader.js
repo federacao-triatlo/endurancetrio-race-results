@@ -35,10 +35,6 @@ class ResultsHeader extends LitElement {
     this.race = {};
   }
 
-  render() {
-    return html`<section class="mb-4">${Utils.isObjectEmpty(this.race) ? null : this.renderRaceHeader()}</section>`;
-  }
-
   connectedCallback() {
     super.connectedCallback();
 
@@ -54,10 +50,14 @@ class ResultsHeader extends LitElement {
     super.disconnectedCallback();
   }
 
+  render() {
+    return html`<section class="mb-4">${Utils.isObjectEmpty(this.race) ? null : this.renderRaceHeader()}</section>`;
+  }
+
   /**
-   * Renders the Race Header template
+   * Renders the Race Header template.
    *
-   * @returns The Race Header template
+   * @returns The Race Header template.
    */
   renderRaceHeader() {
     const distanceNumberFormat = new Intl.NumberFormat('pt-PT', {

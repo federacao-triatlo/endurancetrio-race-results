@@ -4,26 +4,18 @@
  * Licensed under MIT (https://github.com/EnduranceCode/endurancetrio-race-results/blob/master/LICENSE)
  */
 
-import { LitElement, html, css } from 'lit';
+import { Router } from '@vaadin/router';
 
 import './components/events-list/EventsList';
+import './components/event-data/EventData';
 
-class RaceResults extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: block;
-      }
+const baseUrl = window.location.pathname;
+const app = document.getElementById('race-results');
 
-      :host([hidden]) {
-        display: none;
-      }
-    `,
-  ];
+export const router = new Router(app, { baseUrl: baseUrl });
 
-  render() {
-    return html`<events-list event-reference="20220220FTP001"></events-list>`;
-  }
-}
-
-customElements.define('race-results', RaceResults);
+router.setRoutes([
+  { path: '/', component: 'events-list' },
+  { path: '/:eventReference', component: 'event-data' },
+  { path: '(.*)', component: 'events-list' },
+]);

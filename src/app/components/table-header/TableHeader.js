@@ -41,10 +41,10 @@ class TableHeader extends LitElement {
 }
 
 /**
- * Gets the d attribute for the SVG sorting icon for the given sorting index
+ * Gets the d attribute for the SVG sorting icon for the given sorting index.
  *
- * @param {String} sortingIndex The colum's sorting index
- * @returns The pasth d attribute of the SVG sorting icon
+ * @param {String} sortingIndex The colum's sorting index.
+ * @returns The pasth d attribute of the SVG sorting icon.
  */
 function getPath(sortingIndex) {
   switch (sortingIndex) {

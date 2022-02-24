@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@mdi/js": "^6.5.95",
+    "@vaadin/router": "^1.7.4",
     "lit": "^2.1.2"
   }
 }

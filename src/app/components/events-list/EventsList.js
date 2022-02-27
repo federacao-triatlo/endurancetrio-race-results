@@ -90,7 +90,7 @@ class EventsList extends LitElement {
               <div class="list-item box">
                 <div class="list-item-image">
                   <figure class="image is-64x64">
-                    <md-icon path=${mdiPodium}></md-icon>
+                    <md-icon icon-size="2x" path=${mdiPodium}></md-icon>
                   </figure>
                 </div>
 

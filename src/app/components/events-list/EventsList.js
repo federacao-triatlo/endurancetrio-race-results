@@ -12,6 +12,7 @@ import { appStyles } from '../../css/app-style';
 import { uiMessagesKeys, getUiMessage } from '../../i18n/ui-messages';
 import { router } from '../../RaceResults';
 import { Utils } from '../../utils/Utils';
+import naturalSort from '../../vendor/naturalSort';
 
 import { EventService } from '../../service/EventService';
 
@@ -51,6 +52,10 @@ class EventsList extends LitElement {
     super.connectedCallback();
 
     EventService.getEvents().then((result) => {
+      result.sort((a, b) => {
+        naturalSort.insensitive = true;
+        return -1 * naturalSort(a.startDate, b.startDate);
+      });
       this.events = result;
     });
   }

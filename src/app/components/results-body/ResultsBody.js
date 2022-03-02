@@ -72,12 +72,15 @@ class ResultsBody extends LitElement {
           case 0:
             return html`${this.renderNoResultsMessage()}`;
           case 1:
-            return html`
-              <results-table
-                .labels=${getResultsTableColumnLabels(this.race.results.get('overall'))}
-                .results=${this.race.results.get('overall')}
-              ></results-table>
-            `;
+            if (this.race.results.get('overall').length > 0) {
+              return html`
+                <results-table
+                  .labels=${getResultsTableColumnLabels(this.race.results.get('overall'))}
+                  .results=${this.race.results.get('overall')}
+                ></results-table>
+              `;
+            }
+            return html`${this.renderNoResultsMessage()}`;
           default:
             return html`
               <results-tab
